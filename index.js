@@ -7,8 +7,11 @@ let _vals = new WeakMap();
 let _name = new WeakMap();
 let _counter = new WeakMap();
 let _checks = new WeakMap();
-let _currentPlaying = new WeakMap();
 let innerText = new WeakMap();
+let _currentPlaying = new WeakMap();
+let _boardfunc = new WeakMap();
+
+
 class TicTacToe {
     constructor() {
         _counter.set(this, 0);
@@ -21,6 +24,7 @@ class TicTacToe {
             // _player1.set(this, p3);
             // _player2.set(this, p2);
         })
+        // function sets and changes the value of x and o 
         _currentPlaying.set(this, () => {
             if (_checks.get(this) === false) {
                 innerText.set(this, "x")
@@ -31,33 +35,36 @@ class TicTacToe {
             }
             return innerText.get(this)
         })
+        // function that adds X or O to board and ev listeners
+        _boardfunc.set(this, () => {
+            for (let i = 0; i < Board.children.length; i++) {
+                Board.children[i].setAttribute("data-id", i);
+                let changeColor = () => {
+                    let XorO = _currentPlaying.get(this)();
+                    Board.children[i].innerText = XorO;
+                    if (Board.children[i].innerText === "x") {
+                        Board.children[i].classList.add("p1Color");
+                    } else if (Board.children[i].innerText === "o") {
+                        Board.children[i].classList.add("p2Color")
+                    };
+                    Board.children[i].removeEventListener("click", changeColor)
+                }
+                Board.children[i].addEventListener("click", changeColor)
+            }
+        })
     }
-
     Names() {
         let counter = _counter.get(this)
-        this.BoardEv();
         if (!counter) {
-            _counter.set(this, 1)
-            return _vals.get(this)();
-        } else {
-            throw new Error("Already Got Names")
+            _vals.get(this)();
         }
-    }
-    XorO() {
-        let item = _currentPlaying.get(this)();
-        return item;
+        this.BoardEv();
     }
     BoardEv() {
-        for (let i = 0; i < Board.children.length; i++) {
-            Board.children[i].setAttribute("data-id", i);
-            Board.children[i].addEventListener("click", function addVal() {
-                if (Board.children[i].innerText === "x") {
-                    Board.children[i].classList.add("p1Color");
-                } else if (Board.children[i].innerText === "o") {
-                    Board.children[i].classList.add("p2Color")
-                };
-                Board.children[i].removeEventListener("click", addVal)
-            })
+        let counter = _counter.get(this)
+        if (!counter) {
+            _counter.set(this, 1)
+            _boardfunc.get(this)();
         }
     }
 
@@ -65,4 +72,3 @@ class TicTacToe {
 
 let c = new TicTacToe();
 c.Names()
-c.BoardEv();

@@ -23,6 +23,9 @@
     color:goldenrod;
 }
 
+.p1Color,.p2Color{
+    font-size: 3rem;
+}
 .Board{
     background-color: rgb(41, 15, 41);
     width: 85vw;
