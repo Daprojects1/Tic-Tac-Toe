@@ -16,6 +16,7 @@ class TicTacToe {
     constructor() {
         _counter.set(this, 0);
         _checks.set(this, false);
+        // function that grabs names;
         _vals.set(this, () => {
             // let p3 = prompt("First Player Name ?")
             // let p2 = prompt("Second Player Name ? ")
@@ -67,8 +68,9 @@ class TicTacToe {
             _boardfunc.get(this)();
         }
     }
-
+    static Run() {
+        return new TicTacToe().Names();
+    }
 }
 
-let c = new TicTacToe();
-c.Names()
+TicTacToe.Run();
