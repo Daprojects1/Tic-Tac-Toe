@@ -10,21 +10,23 @@ let _checks = new WeakMap();
 let innerText = new WeakMap();
 let _currentPlaying = new WeakMap();
 let _boardfunc = new WeakMap();
-
-
+let _arrValsX = new WeakMap();
+let _arrValsO = new WeakMap();
 class TicTacToe {
     constructor() {
         _counter.set(this, 0);
         _checks.set(this, false);
         // function that grabs names;
         _vals.set(this, () => {
-            // let p3 = prompt("First Player Name ?")
-            // let p2 = prompt("Second Player Name ? ")
-            // p1Name.innerText = p3;
-            // p2Name.innerText = p2;
-            // _player1.set(this, p3);
-            // _player2.set(this, p2);
+            let p3 = prompt("First Player Name ?")
+            let p2 = prompt("Second Player Name ? ")
+            p1Name.innerText = p3;
+            p2Name.innerText = p2;
+            _player1.set(this, p3);
+            _player2.set(this, p2);
         })
+        _arrValsX.set(this, []);
+        _arrValsO.set(this, []);
         // function sets and changes the value of x and o 
         _currentPlaying.set(this, () => {
             if (_checks.get(this) === false) {
@@ -38,15 +40,23 @@ class TicTacToe {
         })
         // function that adds X or O to board and ev listeners
         _boardfunc.set(this, () => {
+            let arrX = _arrValsX.get(this);
+            let arrO = _arrValsO.get(this);
             for (let i = 0; i < Board.children.length; i++) {
                 Board.children[i].setAttribute("data-id", i);
                 let changeColor = () => {
                     let XorO = _currentPlaying.get(this)();
                     Board.children[i].innerText = XorO;
                     if (Board.children[i].innerText === "x") {
+                        let attrX = Board.children[i].getAttribute("data-id");
+                        arrX.push(attrX);
+                        console.log("arr1", arrX);
                         Board.children[i].classList.add("p1Color");
                     } else if (Board.children[i].innerText === "o") {
                         Board.children[i].classList.add("p2Color")
+                        let attrX = Board.children[i].getAttribute("data-id");
+                        arrO.push(attrX);
+                        console.log("ar2", arrO);
                     };
                     Board.children[i].removeEventListener("click", changeColor)
                 }
