@@ -27,7 +27,7 @@
     font-size: 3rem;
 }
 .Board{
-    background-color: rgb(41, 15, 41);
+    background-color: rgb(57, 38, 143);
     width: 85vw;
     max-width: 500px;
     height: 500px;
@@ -53,4 +53,22 @@
         order: 0;
         margin: 30;
     }
+}
+
+.bg1{
+    background-color: rgb(51, 48, 48);
+}
+
+.btn{
+    display: flex;
+    justify-content: center;
+}
+.btn button{
+    background-color: blueviolet;
+    width: 150px;
+    color: white;
+    border: none;
+    height: 30px;
+    padding: 4px;
+    border-radius: 4px;
 }
