@@ -63,10 +63,10 @@ document.addEventListener("DOMContentLoaded", () => {
                             arrO.push(attrX);
                             console.log("ar2", arrO);
                         };
+                        this.winCheck();
                         if (checkforDone === 9) {
                             this.drawCheck();
                         }
-                        this.winCheck();
                         Board.children[i].removeEventListener("click", changeColor)
                     }
                     Board.children[i].addEventListener("click", changeColor)
